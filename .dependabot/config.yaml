@@ -1,0 +1,13 @@
+version: 1
+update_configs:
+  - package_manager: javascript
+    directory: .
+    update_schedule: daily
+    target_branch: master
+    default_assignees:
+      - laitingsheng
+    default_reviewers:
+      - laitingsheng
+    default_labels:
+      - dependabot
+      - enhancement
