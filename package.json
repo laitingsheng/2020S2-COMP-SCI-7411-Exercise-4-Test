@@ -1,0 +1,14 @@
+{
+  "name": "practice4",
+  "version": "0.0.0",
+  "description": "COMP SCI 7411 Practice 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Tinson Lai",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^8.1.3"
+  }
+}
