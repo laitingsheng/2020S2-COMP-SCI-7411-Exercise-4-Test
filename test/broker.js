@@ -15,11 +15,11 @@ describe("test broker.js", function() {
         const broker = require("../broker.js")
 
         // test function signature
-        assert.strictEqual(typeof broker.emit, "function")
+        assert.ok(broker.emit instanceof Function)
         assert.strictEqual(broker.emit.length, 1)
-        assert.strictEqual(typeof broker.subscribe, "function")
+        assert.ok(broker.subscribe instanceof Function)
         assert.strictEqual(broker.subscribe.length, 2)
-        assert.strictEqual(typeof broker.unsubscribe, "function")
+        assert.ok(broker.unsubscribe instanceof Function)
         assert.strictEqual(broker.unsubscribe.length, 2)
 
         failed = false
