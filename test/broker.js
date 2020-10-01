@@ -8,10 +8,10 @@ class EventsRecord {
     }
 }
 
-describe("test broker.js", function() {
+describe("broker.js", function() {
     let failed = true
 
-    it("preliminary test on module exports", function() {
+    it("should pass the preliminary test", function() {
         const broker = require("../broker.js")
 
         // test function signature
@@ -25,8 +25,8 @@ describe("test broker.js", function() {
         failed = false
     })
 
-    describe("test correctness", function() {
-        before("skip test if the module test failed", function() {
+    describe("should be functional", function() {
+        before("skip test if the preliminary test failed", function() {
             if (failed)
                 this.skip()
         })
@@ -36,10 +36,14 @@ describe("test broker.js", function() {
             delete require.cache["../broker.js"]
         })
 
-        it("simple test", function() {
+        it("with simple flow", function() {
             const broker = require("../broker.js")
 
             const events = new EventsRecord()
+
+            broker.emit("event")
+            assert.strictEqual(Object.keys(events).length, 0)
+
             const handler1 = events.generateHandler(1)
             const handler2 = events.generateHandler(2)
 
@@ -57,6 +61,13 @@ describe("test broker.js", function() {
 
             delete events.handler1
             delete events.handler2
+
+            // removing a handler from an event does not exist
+            broker.unsubscribe("event", handler1)
+            broker.emit("event1")
+            assert.strictEqual(events.handler1, true)
+
+            delete events.handler1
 
             // removing a handler not registered for a specific event
             broker.unsubscribe("event1", handler2)
@@ -78,16 +89,7 @@ describe("test broker.js", function() {
             assert.strictEqual(events.handler1, undefined)
         })
 
-        it("test event not exists", function () {
-            const broker = require("../broker.js")
-
-            const events = new EventsRecord()
-
-            broker.emit("event")
-            assert.strictEqual(Object.keys(events).length, 0)
-        })
-
-        it("1 handler | 5 events", function () {
+        it("with 1 handler vs. 5 events", function () {
             const broker = require("../broker.js")
 
             const events = new EventsRecord()
@@ -125,7 +127,7 @@ describe("test broker.js", function() {
             }
         })
 
-        it("1 event | 5 handlers", function () {
+        it("with 1 event vs. 5 handlers", function () {
             const broker = require("../broker.js")
 
             const events = new EventsRecord()
